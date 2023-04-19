@@ -1,0 +1,42 @@
+server:
+  port: 5001
+
+spring:
+  application:
+    name: gateway
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.255.82.165:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lowerCaseServiceId: true
+      routes:
+        - id: provider
+          uri: lb://provider
+          predicates:
+            - Path=/provider/**
+          filters:
+            - StripPrefix=1
+        - id: consumer
+          uri: lb://consumer
+          predicates:
+            - Path=/consumer/**
+          filters:
+            - StripPrefix=1
+    sentinel:
+      transport:
+        port: 15000
+        dashboard: 10.255.82.178:8858
+  zipkin:
+    service:
+      name: gateway
+    sender:
+      type: web
+    base-url: http://10.255.82.178:9411/
+  sleuth:
+    sampler:
+      probability: 1

@@ -1,0 +1,28 @@
+server:
+  port: 8763
+
+spring:
+  application:
+    name: consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.255.82.165:8848
+    sentinel:
+      transport:
+        port: 18763
+        dashboard: 10.255.82.178:8858
+  zipkin:
+    service:
+      name: consumer
+    sender:
+      type: web
+    base-url: http://10.255.82.178:9411/
+  sleuth:
+    sampler:
+      probability: 1
+
+feign:
+  sentinel:
+    enabled: true
+

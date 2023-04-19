@@ -1,0 +1,21 @@
+server:
+  port: 8762
+
+spring:
+  application:
+    name: provider
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.255.82.165:8848
+
+  zipkin:
+    service:
+      name: provider
+    sender:
+      type: web
+    base-url: http://10.255.82.178:9411/
+  sleuth:
+    sampler:
+      probability: 1
